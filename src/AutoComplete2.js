@@ -36,8 +36,8 @@ function AutoComplete2() {
         setSuggestions([]) // empty suggestions box when selected 
         refs.current.focus()
     }
-    const handleDelete=(item)=>{
-        const d = data.filter(i=>i!=item)
+    const handleDelete=(value)=>{
+        const d = data.filter(i=>i!==value)
         setdata(d)
     }
     const handleSubmit=(e,value)=>{  
@@ -45,39 +45,48 @@ function AutoComplete2() {
             setdata([...data,value])
             setText('')
         }
+        else if(e.key ==='Backspace'&&!value){
+            var d = data.pop()
+            console.log(d,'reoved element')
+            console.log(data,"remaining element")
+            setText('')
+            setdata([...data])
+        }
     }
 
+
     return (
-        <>
-        <div id="divblock">
-            {data.map((item,key) => (
-                
-                    <div className="tag-item" key={item}>
-                        {item}
-                        <button
-                        type="button"
-                        className="button"
-                        onClick={() =>handleDelete(item)}
-                        >
-                        &times;
-                        </button>
-                    </div>
-                    ))
-            }
-        </div>
-        <input 
-                ref={refs}    
-                id="input"
-                type="text"
-                placeholder="Type..."
-                onChange={(e)=>handleChange(e.target.value)}
-                value={text}
-                onKeyDown={(e)=>handleSubmit(e,e.target.value)}
+        <div class="container">
+            <h1 id="search">Search</h1>
+            <div class="tag-container" id="tag-container">
+                    {data.map((item,key) => (
+                        <div key={key} className="tag-item" key={item}>
+                            {item}
+                            <button
+                            type="button"
+                            className="button"
+                            onClick={() =>handleDelete(item)}
+                            >
+                            &times;
+                            </button>
+                        </div>
+                        ))
+                    }
+
+                <input 
+                    ref={refs}    
+                    id="input"
+                    type="text"
+                    placeholder="Type..."
+                    onChange={(e)=>handleChange(e.target.value)}
+                    value={text}
+                    onKeyDown={(e)=>handleSubmit(e,e.target.value)}
                 />
-                {suggestions&&suggestions.map((sug,i)=>{
+            </div>
+        {suggestions&&suggestions.map((sug,i)=>{
                     return( <div key={i} id="suggestions"onClick={()=>handleClick(sug.first_name)}>{sug.first_name}</div>)
-                })}
-    </>
+        })}
+    </div>
     )
 }
 
