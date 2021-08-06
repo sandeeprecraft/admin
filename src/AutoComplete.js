@@ -17,23 +17,25 @@ function AutoComplete() {
         let matches =[]
         if(value.length>0){
             matches=Users.filter((u)=>{
-                const regex = new RegExp(`${value}`,"gi")
-                return (u.first_name.match(regex))
+                const regex = new RegExp(`${value}`,"gi")   
+                return (u.first_name.match(regex))  
             })
         }
-        console.log(matches)
         setSuggestions(matches)
         setText(value)
     }
     const handleClick=(value)=>{
         setText(value)
-        setSuggestions([])
+        setSuggestions([]) // empty suggestions box when selected 
+    }
+    const handleBlur=(value)=>{
+       setText(value)
     }
 
     return (
         <div>
             <h1 id="search">Search</h1>
-            <input id="inputarea" type="text" placeholder="Type text" onChange={(e)=>handleChange(e.target.value)} value={text}></input>
+            <input id="inputarea" type="text" placeholder="Type text" onBlur={(e)=>handleBlur(e.target.value)} onChange={(e)=>handleChange(e.target.value)} value={text}></input>
             {suggestions&&suggestions.map((sug,i)=>{
                return( <div key={i} id="suggestions"onClick={()=>handleClick(sug.first_name)}>{sug.first_name}</div>)
             })}

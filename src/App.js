@@ -1,11 +1,11 @@
 // import logo from './logo.svg';
 import './App.css';
-import AutoComplete from './AutoComplete';
-{/* <img src={logo} className="App-logo" alt="logo" /> */}
+// import AutoComplete from './AutoComplete';
+import AutoComplete2 from './AutoComplete2';
 function App() {
   return (
     <div className="App">
-      <AutoComplete />
+      <AutoComplete2 />
     </div>
   );
 }
