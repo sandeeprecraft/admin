@@ -27,7 +27,9 @@
     border-radius: 15px;
     background-color: rgb(241, 238, 231);
     cursor: default;
-
+  }
+  .tag-item:hover{
+    background-color: rgb(175, 159, 159);
   }
 
   .tag-container #input {

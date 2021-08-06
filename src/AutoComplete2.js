@@ -3,7 +3,7 @@ import React,{useEffect, useState,useRef} from 'react'
 import './AutoComplete.css'
 
 function AutoComplete2() {
-    const [data, setdata] = useState([])
+    const [data, setdata] = useState([]) //selecting multiple values
     const [text,setText] = useState('');
     const [Users,setUsers] = useState([]); // All data
     const [suggestions,setSuggestions] =useState([]) //matched suggestions
@@ -36,9 +36,9 @@ function AutoComplete2() {
         setSuggestions([]) // empty suggestions box when selected 
         refs.current.focus()
     }
-    const handleDelete=(value)=>{
-        const d = data.filter(i=>i!==value)
-        setdata(d)
+    const handleDelete=(index)=>{
+        data.splice(index,1)
+        setdata([...data])
     }
     const handleSubmit=(e,value)=>{  
         if((e.key==='Enter' || e.key==='Tab') && value){
@@ -46,10 +46,7 @@ function AutoComplete2() {
             setText('')
         }
         else if(e.key ==='Backspace'&&!value){
-            var d = data.pop()
-            console.log(d,'reoved element')
-            console.log(data,"remaining element")
-            setText('')
+            data.pop()
             setdata([...data])
         }
     }
@@ -65,7 +62,7 @@ function AutoComplete2() {
                             <button
                             type="button"
                             className="button"
-                            onClick={() =>handleDelete(item)}
+                            onClick={() =>handleDelete(key)}
                             >
                             &times;
                             </button>
@@ -83,10 +80,10 @@ function AutoComplete2() {
                     onKeyDown={(e)=>handleSubmit(e,e.target.value)}
                 />
             </div>
-        {suggestions&&suggestions.map((sug,i)=>{
-                    return( <div key={i} id="suggestions"onClick={()=>handleClick(sug.first_name)}>{sug.first_name}</div>)
-        })}
-    </div>
+            {suggestions&&suggestions.map((sug,i)=>{
+                        return( <div key={i} id="suggestions"onClick={()=>handleClick(sug.first_name)}>{sug.first_name}</div>)
+            })}
+        </div>
     )
 }
 
