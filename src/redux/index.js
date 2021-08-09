@@ -1,0 +1,1 @@
+import {submitform,submitform1,submitform2,submitform3} from './action'
